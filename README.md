@@ -1,6 +1,8 @@
 # Subway Map
 
-Offline capable subway map, can be added to homescreen to be used as effectively an "app"
+Offline capable subway map, can be added to homescreen to be used as effectively an "app".
+
+**[How to Add to Homescreen](https://www.howtogeek.com/196087/how-to-add-websites-to-the-home-screen-on-any-smartphone-or-tablet/)**
 
 ## Screenshots
 
