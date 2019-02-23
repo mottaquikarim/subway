@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="icon-precomposed.png" />
+       <style>
+            html, body {
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                min-height: 100%;
+            }
+       </style>
+    </head>
+    <body>
+        <!-- the magnifik -->
+        <a class="magnifik" href="big.jpg">
+            <!-- the thumbnail -->
+            <img src="big.jpg" style="height: 100%;">
+        </a>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="magnifik.js"></script>
+        <script>
+            const init = () => {
+                $('.magnifik').magnifik();
+                $('.magnifik').trigger('click')
+            }
+            if ('serviceWorker' in navigator) {
+                  const installTimeout = setTimeout(_ => {
+                    console.log('timeout')
+                    init();
+                  }, 1500)
+
+                  navigator.serviceWorker.register('cache-worker.js')
+                  .then(function(success) {
+                    console.log('Registered:', success);
+                    console.log( 'scope', success.scope );
+                    if ( success.installing ) {
+                        let sw = success.installing;
+                        sw.addEventListener( 'statechange', function ( event ) {
+                            if ( event.target.state == 'installed' ) {
+                                console.log('oninstall')
+                                clearTimeout(installTimeout)
+                                init();
+                            }
+                        } )
+                    }
+                    else {
+                        console.log('already installed, running')
+                        clearTimeout(installTimeout)
+                        init();
+                    }
+                  })
+                  .catch(function(error) {
+                    console.log('Registration failed: ', error);
+                    console.log('loading app anyways...')
+                    clearTimeout(installTimeout)
+                    init();
+                  });
+                }
+                else {
+                    console.log('no svworker')
+                    //clearTimeout(installTimeout)
+                    init();
+                }
+        </script>
+    </body>
+</html>
