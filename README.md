@@ -1,6 +1,6 @@
 # Subway Map
 
-Offline capable subway map
+Offline capable subway map, can be added to homescreen to be used as effectively an "app"
 
 ## Screenshots
 
